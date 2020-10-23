@@ -1,0 +1,12 @@
+.ctrl_dependence::after
+{
+    content: '*';
+    color: #FF0000 !important;
+    position: absolute;
+    left: -10px;
+    top: 0;
+}
+.ctrl_dependence.not_dependence::after
+{
+    content: '';
+}

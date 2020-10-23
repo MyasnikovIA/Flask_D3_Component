@@ -1,0 +1,91 @@
+.ctrl_combobox{
+    position: relative;
+    padding-right: 22px;
+    display: inline-block;
+    border-radius: 3px;
+}
+.ctrl_combobox.ctrl_disable{
+    cursor:default;
+}
+div.cmbb-button
+{
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url('~CmpComboBox/images/button.png') no-repeat transparent;
+    cursor: pointer;
+}
+div.cmbb-button:active
+{
+    background-position: 0 -22px;
+}
+.ctrl_combobox.ctrl_disable div.cmbb-button
+{
+    background-position: 0 -44px;
+    cursor:default;
+}
+div.cmbb-droplist{
+    min-width:  100%;
+    display: none;
+    position: absolute;
+    top: -500px; /* Фиксим скролл */
+    padding: 0;
+    overflow: auto;
+    overflow-x: hidden;
+    border: 1px solid #9696AA;
+    text-align: left;
+    z-index: 7;
+    background: #FFFFFF;
+    margin: -1px 0 0 -1px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+div.cmbb-droplist table{
+    margin: 0px;
+    overflow: hidden;
+    width: 100%;
+    text-align: left;
+}
+div.cmbb-droplist table tr{
+    background-color: white;
+    cursor: pointer;
+}
+div.cmbb-droplist table tr td{
+    padding: 4px 6px;
+}
+div.cmbb-droplist table tr.combo-item-selected{
+    background: #D8EAF4;
+}
+div.cmbb-droplist table tr:hover{
+    background: #D8EAF4;
+    cursor: pointer;
+}
+div.cmbb-droplist table tr.combo-item-selected:hover
+{
+    background: #C4E3F3;
+}
+/** Стили для Иерархического комбобокса **/
+div.cmbb-droplist tr span.btnOC {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+
+div.cmbb-droplist table tr.opened span.btnOC {
+    background: url("~CmpComboBox/images/sq.png") left -1px no-repeat transparent;
+}
+div.cmbb-droplist table tr.closed span.btnOC {
+    background: url("~CmpComboBox/images/sq.png") left -62px no-repeat transparent;
+}
+div.cmbb-droplist table tr:not([parentfield]) span.btnOC {
+    display: none;/*это не иерархический справочник*/
+}
+div.cmbb-droplist table tr.hide {
+    display: none;
+}

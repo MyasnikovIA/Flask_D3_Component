@@ -1,0 +1,11 @@
+div.textArea
+{
+    border-radius: 3px;
+    position: relative;
+}
+div.textArea textarea
+{
+    height: 100%;
+    padding: 3px 6px;
+    width: 100%;    
+}
