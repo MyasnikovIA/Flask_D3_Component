@@ -4,7 +4,7 @@ global ConfigOptions
 ConfigOptions = {
     'DBType': 'MIS',
     'Database': 'SqliteDatabase',
-    'DatabaseName': '//192.168.228.41/med2dev:shared',
+    'DatabaseName': 'SourceDataBase.sql',
     'OutCodePage': 'UTF-8',
     'FormEncoding': 'UTF8',
     'DatabaseCharset': 'UTF8',

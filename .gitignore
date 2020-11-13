@@ -1,2 +1,4 @@
 /.idea
 /__pycache__
+/Components/__pycache__/*.pyc
+*.pyc

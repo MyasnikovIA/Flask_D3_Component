@@ -233,4 +233,4 @@ def all_other_routes(the_path):
 
 if __name__ == '__main__':
     mimetypes.init()
-    socketio.run(APPFLASK, port=8080)
+    socketio.run(APPFLASK, port=8085)
