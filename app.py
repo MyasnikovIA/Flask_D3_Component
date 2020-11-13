@@ -1,6 +1,5 @@
 from flask_socketio import SocketIO, emit
 from flask import Flask, render_template, request
-import mimetypes
 import json
 import importlib
 import os
@@ -193,11 +192,10 @@ def all_other_routes(the_path):
         for name in queryActionObject:
             resultTxt = getRunAction(formName, cache, name, queryActionObject[name])
         return resultTxt, 200
-
+    mime = mimeType(the_path)
     #
     if (the_path == "d3theme.css") or (the_path == "d3api.js"):
         expansion = the_path[the_path.rfind(".") + 1:].lower()
-        mime = mimetypes.guess_type(os.path.abspath(os.path.join(rootDir, 'templates', the_path)))[0]
         htmlContent = [render_template(the_path, **globals())]
         for filename in os.listdir(os.path.abspath(os.path.join(rootDir, 'Components'))):
             if filename[:2] == '__':
@@ -213,7 +211,6 @@ def all_other_routes(the_path):
 
     htmlContent = ""
     if os.path.isfile(os.path.abspath(os.path.join(rootDir, 'templates', the_path))):
-        mime = mimetypes.guess_type(os.path.abspath(os.path.join(rootDir, 'templates', the_path)))[0]
         expansion = the_path[the_path.rfind(".") + 1:].lower()
         if expansion == "ico":
             with open(os.path.abspath(os.path.join(rootDir, the_path)), "rb") as f:
@@ -222,7 +219,6 @@ def all_other_routes(the_path):
             htmlContent = render_template(the_path, **globals())
         # htmlContent = render_template(the_path, request=request)
     elif os.path.isfile(os.path.abspath(os.path.join(rootDir, 'static', the_path))):
-        mime = mimetypes.guess_type(os.path.abspath(os.path.join(rootDir, 'static', the_path)))[0]
         htmlContent = APPFLASK.send_static_file(the_path)
     else:
         return render_template('404.html', **globals()), 404
@@ -232,5 +228,4 @@ def all_other_routes(the_path):
 
 
 if __name__ == '__main__':
-    mimetypes.init()
     socketio.run(APPFLASK, port=8085)
