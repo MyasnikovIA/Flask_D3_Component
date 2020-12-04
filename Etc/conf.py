@@ -92,19 +92,19 @@ ConfigOptions = {
     }
 },
 'smtp' : {
-    'host'          : 'mail-dev.bars-open.ru',
+    'host'          : 'mail-dev.ru',
     'port'          : 25,
     'secure'        : '', # tls, ssl
     'autotls'       : False,
     'debug'         : 0,
     'username'      : 'mis_mail',
-    'password'      : '',
+    'password'      : 'XXXXXXX',
     'from_email'    : '',
-    'from_name'     : 'МИС'
+    'from_name'     : 'COMP'
 },
 'help_url'   : './wiki/',
 'help_conf'  : './wiki/help.inc',
-'HIVCenter' : '23619228', #ID ЛПУ Центра СПИД
+'HIVCenter' : '',
 }
 
 
