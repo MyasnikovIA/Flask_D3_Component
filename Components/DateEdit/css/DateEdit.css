@@ -48,7 +48,7 @@
     display: none;
 }
 .calendar thead tr td.closeCalendar{
-   background: url('~CmpDateEdit/calendar_close') no-repeat center center;
+   background: url('/Components/DateEdit/images/calendar_close.png') no-repeat center center;
    cursor: pointer;
 }
 .calendar thead .title { /* This holds the current "month, year" */
@@ -61,19 +61,19 @@
     background: #FFFFFF;
 }
 .calendar thead .headrow td:first-child{
-   background: url('~CmpDateEdit/l_year') no-repeat center center;
+   background: url('/Components/DateEdit/images/l_year.png') no-repeat center center;
    cursor: pointer;
 }
 .calendar thead .headrow td:first-child+td{
-   background: url('~CmpDateEdit/l_month') no-repeat center center;
+   background: url('/Components/DateEdit/images/l_month.png') no-repeat center center;
    cursor: pointer;
 }
 .calendar thead .headrow td:first-child+td+td+td{
-   background: url('~CmpDateEdit/r_month') no-repeat center center;
+   background: url('/Components/DateEdit/images/r_month.png') no-repeat center center;
    cursor: pointer;
 }
 .calendar thead .headrow td:first-child+td+td+td+td{
-   background: url('~CmpDateEdit/r_year') no-repeat center center;
+   background: url('/Components/DateEdit/images/r_year.png') no-repeat center center;
    cursor: pointer;
 }
 
@@ -258,14 +258,14 @@ div.ctrl_dateEdit>div:first-child
     border-radius: 2px;
 }
 div.ctrl_dateEdit input[type="text"]{
-    border-right-width: 0px;
+    border-right-width: 2px;
     width:100%;
     /*padding-right: 30px;*/
 }
 div.ctrl_dateEdit .img-calendar, .ctrl_dateEditBtnClear, .ctrl_dateEditBtnClearIcon {
     width: 30px;
     height: 22px;
-    background: url('~CmpDateEdit/calendar') no-repeat top left transparent;
+    background: url('/Components/DateEdit/images/calendar.png') no-repeat top left transparent;
     cursor:pointer;
     display: block;
     position: absolute;
@@ -282,7 +282,7 @@ div.ctrl_dateEdit.ctrl_disable .img-calendar{
 }
 .ctrl_dateEditBtnClearIcon
 {
-    background: url('~CmpDateEdit/button_clear') no-repeat transparent;
+    background: url('/Components/DateEdit/images/button_clear.png') no-repeat transparent;
 }
 .ctrl_dateEdit.withClearButton
 {

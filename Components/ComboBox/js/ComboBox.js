@@ -860,10 +860,17 @@ D3Api.ComboBoxCtrl = new function ()
         _dom.modeValues['old_readonly'] = D3Api.getProperty(input,'readonly','false');
         _dom.modeValues['old_selectedValue'] = D3Api.ComboBoxCtrl.getValue(_dom);
 
+        var set_focus = D3Api.getProperty(_dom, 'focus', 'true');
+
         switch(mode)
         {
             //Скрываем записи, которые не подходят по фильтру
             case 'filter':
+                    if(set_focus !== 'false') {
+                        input.focus();
+                        input.select();
+                    }
+
                     input.removeAttribute('readonly');
                     _dom.modeValues['case'] = D3Api.getProperty(_dom,'case','false');
                 break;

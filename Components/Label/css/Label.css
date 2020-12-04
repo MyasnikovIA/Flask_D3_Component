@@ -1,0 +1,23 @@
+span.label
+{
+
+}
+span[note="labelWithNote"]
+{
+    position: relative;
+    display: inline-block;
+}
+span.labelNote
+{
+    bottom: 0mm;
+    display: block;
+    font-weight: normal;
+    left: 0;
+    line-height: 2.5mm;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    width: 100%;
+    border-top: 1px solid black;
+}

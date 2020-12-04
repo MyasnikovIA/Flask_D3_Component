@@ -14,9 +14,20 @@ class ComboItem(BaseCtrl):
                 </td>
             </tr>
 
+            <tr  cmptype="ComboItem" name="cmp5fc735b455c42" comboboxname="MySel"    value="4" >
+                <td>
+                    <div class="item_block">
+                        <span class="btnOC" comboboxname="MySel"></span>
+
+                        <span cont="itemcaption">4</span>
+                    </div>
+
+                </td>
+            </tr>
+
     """
 
-    def __init__(self, PageInfo={}, attrs={}, innerText=""):
+    def __init__(self, PageInfo={}, attrs={}, innerText="",parent = None):
         self.style = []
         self.classCSS = []
         if 'style' in attrs:
@@ -62,12 +73,14 @@ class ComboItem(BaseCtrl):
         res = []
         atr = "  ".join(f"{k}='{v}'" for k, v in self.attrs.items())
         res.append(f"""
-                <tr cmptype="ComboItem"  {atr} >
-                    <td>
-                        <div class="item_block">
-                            <span class="btnOC" ></span>
-                            <span cont="itemcaption">{self.caption}{self.innerHtml}</span>
-                        </div>
-                    </td>
+               
+            <tr  cmptype="ComboItem" {atr} >
+                <td>
+                    <div class="item_block">
+                        <span class="btnOC" comboboxname="MySel"></span>
+                        <span cont="itemcaption">{self.caption}{self.innerHtml}</span>
+                    </div>
+
+                </td>
         """)
         return f"</{self.printTag}>", res, [],""

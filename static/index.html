@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html style="height: 100%;">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+            <meta name="format-detection" content="telephone=no">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <link rel="stylesheet" type="text/css" href="~d3theme"/>
+            <style type="text/css">
+                * {
+                    filter: none !important;
+                }
+                .hidden {
+                    visibility: hidden;
+                }
+            </style>
+        <!--script type="text/javascript" src="external/socket.io.min.js"></script-->
+        <script type="text/javascript" src="external/socket.io.js"></script>
+        <script type="text/javascript" src="external/app.js"></script>
+        <script type="text/javascript" src="external/xpath.js"></script>
+        <script type="text/javascript" src="~d3api"></script>
+        <script type="text/javascript" src="external/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="external/jquery-ui-1.12.1.min.js"></script>
+        <script type="text/javascript" src="external/jquery.notify.min.js"></script>
+        <script type="text/javascript" src="external/jquery.ui.touch-punch.min.js"></script>
+        <script type="text/javascript" src="external/jquery.jswipe.js"></script>
+        <script src="external/require.js"></script>
+
+        <!--script src="external/sys.js"></script-->
+        <script src="external/common.js"></script>
+        <script src="external/system.js"></script>
+        <link rel="stylesheet" type="text/css" href="Components/Window/css/win.css"/>
+        <script type="text/javascript" src="Components/Window/window.js"></script>
+
+
+    </head>
+    <body style="height: 100%;" onresize="D3Api.resize(false);" oncontextmenu="return D3Api.onContextMenuBody(event);" onbeforeunload1="return 'Внимание.';">
+        <div id="D3MainContainer" class="D3MainContainer">
+            <div class="slider hidden" style="width:400px;position:absolute;right:0;top:55px;z-index: 100;">
+        </div>
+        <div class="notSupportedBrowser" id="D3_NOT_SUPPORTED">
+            <span style="font-size: 16px;">Ваш браузер не поддерживается.</span>
+            <hr/>
+            <div style="padding-bottom:10px">Вы работаете с браузером: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36</div>
+            <div>    Для работы рекомендуем использовать следующие браузеры:
+
+                <table cellspacing="0" cellpadding="0" style="margin-top:10px; width: 400px">
+                    <tr>
+                        <td width="150">
+                            <b>Название браузера</b>
+                            <hr/>
+                        </td>
+                        <td width="100" align="center">
+                            <b>Версия</b>
+                            <hr/>
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr><td><span class="nameBrowser">Internet Explorer</span></td><td align="center">8+</td><td align="center"><a href="http://windows.microsoft.com/ru-RU/internet-explorer/downloads/ie-8">Установить</a></td></tr>
+                    <tr><td><span class="nameBrowser">Mozilla Firefox</span></td><td align="center">13+</td><td align="center"><a href="http://mozilla-russia.org/">Установить</a></td></tr>
+                    <tr><td><span class="nameBrowser">Google Chrome</span></td><td align="center">15+</td><td align="center"><a href="https://www.google.com/chrome/">Установить</a></td></tr>
+                    <tr><td><span class="nameBrowser">Safari</span></td><td align="center">5+</td><td align="center"><a href="http://www.apple.com/safari/">Установить</a></td></tr>
+                    <tr><td><span class="nameBrowser">Opera</span></td><td align="center">11+</td><td align="center"><a href="http://ru.opera.com/">Установить</a></td></tr>
+                </table>
+            </div>
+            <style>
+                .notSupportedBrowser {
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    margin-left: -210px;
+                    margin-top: -110px;
+                    background: #FFFFFF;
+                    width: 400px;
+                    height: 230px;
+                    padding: 20px;
+                    display: none;
+                }
+                .nameBrowser {
+                    line-height: 22px;
+                }
+            </style>
+        </div>
+        <script type="text/javascript">
+            if(D3BROWSER === false) {
+                document.getElementById('D3_NOT_SUPPORTED').style.display = 'block';
+            } else {
+                D3Api.MULTI_REQUEST = {"MAX_THREAD":"","MAX_REQUEST":""};
+                D3Api.cache_enabled = 0;
+                D3Api.startInit();
+                D3Api.init();
+                D3Api.MainDom = document.getElementById('D3MainContainer');
+                D3Api.D3MainContainer = D3Api.MainDom;
+                var dev_info_panel = D3Api.getOption('dev_info_panel', 'false');
+                if (dev_info_panel && dev_info_panel.show == 'true') {
+                    var info_panel = document.createElement('div');
+                    if (dev_info_panel.text) {
+                        info_panel.innerHTML = dev_info_panel.text;
+                    }
+                    if (dev_info_panel.color) {
+                        info_panel.style.borderColor = dev_info_panel.color;
+                    }
+                    D3Api.addClass(info_panel, 'dev_info_panel');
+                    D3Api.insertBeforeDom(D3Api.D3MainContainer, info_panel);
+                }
+                // D3Api.showForm('main', undefined, {history: false});
+                openD3Form('main',false);
+            }
+        </script>
+        <div class="MContent" id="_mainContainer"></div>
+
+    </body>
+</html>

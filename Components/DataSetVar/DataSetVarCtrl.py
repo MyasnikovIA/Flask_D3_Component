@@ -2,7 +2,7 @@ from Components.BaseCtrl import BaseCtrl
 
 
 class DataSetVar(BaseCtrl):
-    def __init__(self, PageInfo={}, attrs={}, innerText=""):
+    def __init__(self, PageInfo={}, attrs={}, innerText="",parent = None):
         self.PageInfo = PageInfo
         self.CmpType = 'var'
         self.printTag = 'var'

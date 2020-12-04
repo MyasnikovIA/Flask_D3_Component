@@ -1,0 +1,3 @@
+<node target="MyComponent" pos="replace">
+     <cmpLabel caption="Форма находится только в ЮФ ( переопределяется внутри ЮФ)" name="MyComponent"/>
+</node>

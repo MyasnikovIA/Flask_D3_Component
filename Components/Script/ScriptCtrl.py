@@ -7,7 +7,7 @@ class Script(BaseCtrl):
 
         </textarea>
     """
-    def __init__(self, PageInfo={}, attrs={}, innerText=""):
+    def __init__(self, PageInfo={}, attrs={}, innerText="",parent = None):
         self.style = []
         if 'style' in attrs:
             self.style = [i for i in attrs['style'].split(";")]

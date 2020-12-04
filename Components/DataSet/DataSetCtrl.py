@@ -7,19 +7,23 @@ from Components.BaseCtrl import BaseCtrl
 
 
 class DataSet(BaseCtrl):
-    def __init__(self, PageInfo={}, attrs={}, innerText=""):
+    def __init__(self, PageInfo={}, attrs={}, innerText="",parent = None):
+        if 'cmptype' in attrs:
+            del attrs['cmptype']
         self.PageInfo = PageInfo
         self.CmpType = 'DataSet'
         self.printTag = 'DataSet'
         self.innerHtml = innerText
         self.attrs = attrs.copy()
+        self.ASQL=""
         if 'name' not in self.attrs:
             self.attrs['name'] = self.genName()
 
+
     def Show(self):
         self.sysinfo = []
-        scriptTxt = f"<script>refreshDataSet('{self.attrs['name']}');<script>"
-        self.sysinfo.append(f"""\n<{self.printTag}  name='{str(self.attrs["name"])}' >""" )
+        atrStr = "  ".join(f"{k}='{v}'" for k, v in self.attrs.items())
+        self.sysinfo.append(f"""\n<{self.printTag}  {atrStr} >""" )
         return f" ", [], self.sysinfo,f"</{self.printTag}>"
 
     def OnRequest(XMLElement, typScript, elementName, vars):

@@ -1,37 +1,24 @@
-from Components.BaseCtrl import BaseCtrl
+from Components.BaseCtrl import *
 
 
-class Dependences(BaseCtrl):
-    """
-          <div  name="IS_MAIN" cmptype="Edit" title=""  class="ctrl_edit editControl box-sizing-force"  style=";width: 100%;">
-              <div class = "edit-input">
-                 <input cmpparse="Edit" type="text" value="" onchange="D3Api.stopEvent();"/>
-              </div>
-          </div>
-    """
+class Edit(BaseCtrl):
 
-    def __init__(self, PageInfo={}, attrs={}, innerText=""):
-        self.style = []
-        self.classCSS = []
-        if 'style' in attrs:
-            self.style = [i for i in attrs['style'].split(";")]
-            del attrs['style']
-        for name in self.argsToStyleList:
-            if name in attrs:
-                self.style.append(f"{name}:{attrs[name]}")
-                del attrs[name]
-
-        self.PageInfo = PageInfo
+    def __init__(self, PageInfo={}, attrs={}, innerText="", parent=None):
         self.CmpType = 'Dependences';
         if 'cmptype' in attrs:
             del attrs['cmptype']
         self.printTag = 'div';
         self.attrs = attrs.copy()
-        if 'name' not in self.attrs:
-            self.attrs['name'] = self.genName()
+        self.name = RemoveArrKeyRtrn(self.attrs, 'name', self.genName())
+        self.required = getDomAttr('required', '', self.attrs);
+        self.depend = getDomAttr('depend', '', self.attrs);
+        self.repeatername = getDomAttr('repeatername', None, self.attrs);
+        self.condition = getDomAttr('condition', None, self.attrs);
 
     def Show(self):
-        res = []
-        res.append(
-            f"""<div  cmptype="{self.CmpType}"   name="{self.attrs['name']}"   required="{self.attrs['required']}"  depend="{self.attrs['depend']}"  style="display:none">""")
-        return f"</{self.printTag}>", res, [],""
+        showtext = f"""
+	            <div cmptype="{self.CmpType}" name="{self.name}" {self.required} {self.depend} {self.repeatername} {self.condition} style="display:none">"""
+        self.sysinfo = []
+        self.sysinfo.append("<scriptfile>Components/Dependences/js/Dependences.js</scriptfile>")
+        self.sysinfo.append("<cssfile>Components/Dependences/css/Dependences.css</cssfile>")
+        return f"</{self.printTag}>",[showtext], self.sysinfo, ""

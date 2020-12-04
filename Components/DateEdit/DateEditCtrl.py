@@ -1,4 +1,4 @@
-from Components.BaseCtrl import BaseCtrl
+from Components.BaseCtrl import *
 
 class DateEdit(BaseCtrl):
     """
@@ -14,12 +14,9 @@ class DateEdit(BaseCtrl):
 
     """
 
-    def __init__(self, PageInfo={}, attrs={}, innerText=""):
+    def __init__(self, PageInfo={}, attrs={}, innerText="",parent = None):
         self.style = []
         self.classCSS = []
-        if 'style' in attrs:
-            self.style = [i for i in attrs['style'].split(";")]
-            del attrs['style']
         for name in self.argsToStyleList:
             if name in attrs:
                 self.style.append(f"{name}:{attrs[name]}")
@@ -31,31 +28,21 @@ class DateEdit(BaseCtrl):
             del attrs['cmptype']
         self.printTag = 'div';
         self.attrs = attrs.copy()
-        if 'name' not in self.attrs:
-            self.attrs['name'] = self.genName()
-        if 'title' not in self.attrs:
-            self.attrs['title'] = ""
-        if 'shows_time' in self.attrs:
-            self.attrs['mask_type'] = "datetime"
-            del self.attrs['shows_time']
+
+        # self.style = [i for i in attrs['style'].split(";")]
+        self.style = getDomAttrRemove('style', None, self.attrs);
+        self.name = RemoveArrKeyRtrn(self.attrs, 'name', self.genName())
+        self.title = getDomAttrRemove('title', None, self.attrs);
+        self.shows_time = RemoveArrKeyRtrn(self.attrs, 'shows_time', '')
+        if len(self.shows_time) > 0:
+            self.shows_time = ' mask_type="datetime" shows_time="shows_time" '
         else:
-            self.attrs['mask_type'] = "date"
-        self.readonly=""
-        if 'readonly' in self.attrs:
-            self.readonly = ' readonly="readonly" '
-            del self.attrs['readonly']
-        self.disabled=""
-        if 'disabled' in self.attrs:
-            self.disabled = ' disabled="disabled" '
-            del self.attrs['disabled']
-        self.placeholder=""
-        if 'placeholder' in self.attrs:
-            self.placeholder = f' placeholder="{self.attrs["placeholder"]}"'
-            del self.attrs['placeholder']
-        self.value=""
-        if 'value' in self.attrs:
-            self.value = f' value="{self.attrs["value"]}" '
-            del self.attrs['value']
+            self.shows_time = ' mask_type="date" '
+        self.readonly = getDomAttrRemove('readonly', None, self.attrs);
+        self.disabled = getDomAttrRemove('disabled', None, self.attrs);
+        self.placeholder = getDomAttrRemove('placeholder', None, self.attrs);
+        self.value = getDomAttrRemove('value', None, self.attrs);
+
         if 'class' not in self.attrs:
             self.classCSS = ["ctrl_dateEdit","editControl"]
         else:
@@ -65,19 +52,25 @@ class DateEdit(BaseCtrl):
             self.classCSS.append('ctrl_dateEdit')
         if 'editControl' not in  self.classCSS:
             self.classCSS.append('editControl')
-        self.events = "  ".join(f"{k}='{v}'" for  k, v in self.attrs.items() if k[:2] == "on")
+
 
     def Show(self):
-        res = []
-        atr = "  ".join(f'{k}="{v}"' for k, v in self.attrs.items())
-        res.append(f"""
-          <div class="{" ".join(self.classCSS)}"  cmptype="{self.CmpType}"  style="{" ".join(self.style)}"  {atr} >
+        eventsStr = "  ".join(f"{k}='{v}'" for k, v in self.attrs.items() if k[:2] == "on")
+        atr = "  ".join(f"{k}='{v}'" for k, v in self.attrs.items() if not k[:2] == "on")
+        showtext = f"""
+          <div class="{" ".join(self.classCSS)}" name="{self.name}" cmptype="{self.CmpType}"  {self.style} {atr} {self.shows_time}   >
                <div class="editControlInner">
-                   <input  cmpparse="true"  type="text" {self.readonly}{self.disabled}{self.placeholder}{self.value} {self.events}/>
+                   <input  cmpparse="true"  type="text" {self.readonly} {self.disabled} {self.placeholder} {self.value} {eventsStr}/>
                </div>
                <div cmpparse="DateEdit"  onclick="return D3Api.DateEditCtrl.showCalendar(this);"  class="img-calendar" title="Выбрать из календаря"></div>
-               <div cmptype="Base" name="{self.attrs['name']}_showCalendar"></div>
+               <div cmptype="Base" name="{self.name}_showCalendar"></div>
            </div>
-           <div  cmptype="Mask"   name="mask{self.attrs['name']}"   controls="{self.attrs['name']}"  style="display:none">
-        """)
-        return f"</div>", res, [],""
+           <div  cmptype="Mask"   name="mask{self.name}"   controls="{self.name}"  style="display:none">
+        """
+        self.sysinfo = []
+        self.sysinfo.append("<scriptfile>Components/DateEdit/js/DateEdit.js</scriptfile>")
+        self.sysinfo.append("<cssfile>Components/DateEdit/css/DateEdit.css</cssfile>")
+        self.sysinfo.append("<scriptfile>Components/Mask/js/Mask.js</scriptfile>")
+        self.sysinfo.append("<cssfile>Components/Mask/css/Mask.css</cssfile>")
+        return f"</{self.printTag}>", [showtext], self.sysinfo, ""
+

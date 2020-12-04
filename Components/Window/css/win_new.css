@@ -1,0 +1,437 @@
+.win_overlow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(85, 133, 181, 0.3) !important;
+}
+.window {
+  position: fixed;
+  border-radius: 4px;
+  box-shadow: 0 8px 25px 0 rgba(76, 94, 115, 0.34);
+  border: solid 1px #eef0f5;
+  background-color: #ffffff;
+  padding: 0 16px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+.window.hidden {
+  opacity: 0;
+}
+.window.showed {
+  -moz-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+.window__header {
+  font-family: var(--font-main-bold);
+  padding: 12px 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: move;
+}
+.window__title {
+  flex: 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.window__buttons {
+  display: flex;
+  align-items: center;
+}
+.window__buttons > .button {
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  border-radius: 50%;
+  background-position: center center;
+  background-size: 22px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  position: relative;
+}
+.window__buttons > .button:last-child {
+  margin: unset;
+}
+.window__buttons > .button:hover {
+  background-color: #c4c6d6;
+}
+.window__buttons > .button:active {
+  background-color: var(--font-color-grey);
+}
+.window__buttons > .button::after {
+  position: absolute;
+  top: calc(50% - 8px);
+  right: calc(50% - 8px);
+  font-family: "Icons";
+  color: var(--font-color-grey);
+  font-size: 16px;
+  line-height: 1;
+  pointer-events: none;
+  font-weight: normal;
+}
+.window__buttons > .button.more::after {
+  content: "\e941";
+}
+.window__buttons > .button.maximize::after {
+  content: "\e940";
+}
+.window__buttons > .button.close::after {
+  content: "\e93f";
+}
+.window__buttons > .button:active::after {
+  color: #fff;
+}
+.window__body {
+  flex: 1 auto;
+  overflow: hidden;
+  user-select: text;
+  background-color: var(--white);
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+.window__resizer {
+  position: absolute;
+}
+.window__resizer.bottom {
+  height: 7px;
+  left: 0;
+  bottom: 0;
+  right: 7px;
+  cursor: s-resize;
+}
+.window__resizer.bottom-right {
+  height: 7px;
+  width: 7px;
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+}
+.window__resizer.right {
+  width: 7px;
+  top: 0;
+  bottom: 7px;
+  right: 0;
+  cursor: w-resize;
+}
+.window__settings {
+  position: absolute;
+  top: 44px;
+  right: 87px;
+  width: 200px;
+  border-radius: 4px;
+  box-shadow: 0 8px 32px 0 rgba(39, 51, 67, 0.2);
+  border: solid 1px #eef0f5;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.25s;
+}
+.window__settings.showed {
+  visibility: visible;
+  opacity: 1;
+}
+.window__settings > .line {
+  font-family: var(--font-main-bold);
+  font-size: 13px;
+  color: var(--font-color-grey);
+  padding: 12px 16px;
+  border-bottom: 1px solid #eef0f5;
+}
+.window__settings > .line:last-child {
+  border-bottom: unset;
+}
+.window__settings .link {
+  cursor: pointer;
+}
+
+.window_max_size {
+  max-width: 800px;
+  max-height: 600px;
+}
+
+.w-loading {
+  display: none;
+}
+.win_btn_container {
+  display: inline-block;
+  padding-top: 6px;
+  vertical-align: top;
+  margin-right: 0;
+  position: absolute;
+  right: 0;
+  z-index: 9999;
+  background: url(../images/ModWinT_bg.png);
+}
+
+.win_btn_container > div {
+  margin-right: 4px;
+}
+
+.win_btn_container > div:last-child {
+  margin-right: 5px;
+}
+.window-control {
+  width: 23px;
+  height: 23px;
+  cursor: hand;
+  cursor: pointer;
+}
+.window-control:hover {
+  background-position: 0 -24px;
+}
+.win_remembersize {
+  display: inline-block;
+  background: transparent url(../themes/ok.gif) no-repeat scroll 0 0;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+.win_help {
+  display: inline-block;
+  background: transparent url(Icons/hlp) no-repeat scroll 0 0;
+  cursor: hand;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+.win_reload {
+  background: transparent url(../themes/green/reload.png) repeat scroll 0 0;
+  right: 36px;
+  position: absolute;
+  top: -3px;
+}
+.win_maximize {
+  display: inline-block;
+  background: transparent url(../images/maximize.png) repeat scroll 0 0;
+  width: 16px;
+  height: 16px;
+}
+.win_close {
+  display: inline-block;
+  background: transparent url(../images/close.png) repeat scroll 0 0;
+  width: 16px;
+  height: 16px;
+}
+.win_info {
+  display: inline-block;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+.win_info > svg {
+  fill: #5ab0e7;
+}
+.win_info > svg:hover {
+  fill: #1f6dd1;
+}
+.win_maximize:hover,
+.win_close:hover {
+  background-position: 0 -16px;
+}
+.draggable {
+  cursor: move;
+}
+/*   Header */
+.win_nw {
+  background: transparent url(../themes/green/TL.png) no-repeat scroll 0 0;
+  height: 30px;
+  width: 24px;
+}
+.win_n {
+  background: transparent url(../themes/green/T.png) repeat-x scroll 0 0;
+  height: 30px;
+}
+.win_ne {
+  background: transparent url(../themes/green/TR.png) no-repeat scroll 0 0;
+  height: 30px;
+  width: 30px;
+}
+/*   Title   */
+.Title {
+  /*margin: 0 3px;*/
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: move;
+  line-height: 27px;
+  vertical-align: middle;
+  padding-left: 4px;
+  font-size: 14px;
+  padding-right: 60px;
+  overflow: hidden;
+  height: 27px;
+  text-overflow: ellipsis;
+}
+.title_window {
+  float: left;
+  color: #3d6152;
+  font-weight: bold;
+  padding: 0 0 2px 10px;
+  height: 14px;
+  margin-top: 8px;
+  width: 100%;
+  overflow: hidden;
+  font-size: 14px;
+}
+.win_title {
+  color: darkslategray;
+}
+
+/*   Content  */
+.win_w {
+  background: transparent url(../themes/green/L.png) repeat-y scroll left top;
+  width: 16px;
+  cursor: move;
+  border-right: 1px solid #3d6152;
+}
+.win_content {
+  background: #327db0 url("../images/Background.png") center center no-repeat;
+  overflow: auto;
+  font-size: 14px;
+}
+.win_e {
+  background: transparent url(../themes/green/R.png) repeat-y scroll right top;
+  width: 16px;
+  cursor: e-resize;
+  /*border-left:1px solid #3D6152;*/
+}
+/*   Bottom   */
+.win_sw {
+  background: transparent url(../themes/green/BL.png) no-repeat scroll 0 0;
+  height: 40px;
+  width: 31px;
+  float: left;
+  cursor: s-resize;
+}
+.win_s {
+  background: transparent url(../themes/green/B.png) repeat-x scroll 0 0;
+  height: 40px;
+  width: 100%;
+  cursor: s-resize;
+}
+/* StatusBar  */
+.win_status_bar {
+  padding-bottom: 13px;
+  float: left;
+  left: -5px;
+  bottom: 7px;
+  position: relative;
+  color: green;
+  font-weight: bold;
+  font-size: 14px;
+}
+/*   Sizer   */
+.win_sizer {
+  cursor: se-resize;
+  background: transparent url(../themes/green/BR.png) no-repeat scroll 0 0;
+  height: 40px;
+  width: 31px;
+  float: right;
+}
+.win_onloader {
+  overflow: hidden;
+  background-color: #f7fae6;
+}
+/* WinContent */
+table.WinContent {
+  display: table;
+}
+table.WinContent tr.headerTitle {
+  height: 27px;
+}
+table.WinContent td.WinContent div.formBackground {
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  -o-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+}
+table.WinContent td.WinContentLeftTop {
+  min-width: 10px;
+  width: 10px;
+  height: 10px;
+  background: url("../images/ModWin_tl.png") left top no-repeat;
+}
+table.WinContent td.WinContentTop {
+  height: 10px;
+  background: url("../images/ModWin_t.png") left top repeat-x;
+}
+table.WinContent td.WinContentRightTop {
+  min-width: 10px;
+  width: 10px;
+  height: 10px;
+  background: url("../images/ModWin_tr.png") left top no-repeat;
+}
+table.WinContent div.WinTitleLeft {
+  background: url("../images/ModWinT_l.png") left top no-repeat;
+  /*background:url("../images/ModWin_bg.png") left top;*/
+  min-width: 3px;
+  width: 3px;
+  float: left;
+  height: 27px;
+}
+table.WinContent div.WinTitle {
+  display: inline-block;
+  margin-left: 0;
+}
+.headerContainer {
+  height: 27px;
+  background: url("../images/ModWinT_bg.png");
+  position: relative;
+}
+table.WinContent div.WinTitleRight {
+  float: right;
+  min-width: 3px;
+  width: 3px;
+  height: 27px;
+  background: url("../images/ModWinT_r.png") right top no-repeat;
+  /*background:url("../images/ModWin_bg.png") left top;*/
+}
+table.WinContent td.WinContentLeft {
+  width: 10px;
+  background: url("../images/ModWin_l.png") left top repeat-y;
+}
+table.WinContent td.WinContent {
+  background: url("../images/ModWin_bg.png") left top;
+}
+table.WinContent td.WinContentRight {
+  width: 10px;
+  background: url("../images/ModWin_r.png") left top repeat-y;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+table.WinContent td.WinContentLeftBottom {
+  width: 10px;
+  height: 10px;
+  background: url("../images/ModWin_bl.png") left top no-repeat;
+  cursor: s-resize;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+table.WinContent td.WinContentBottom {
+  height: 10px;
+  background: url("../images/ModWin_b.png") left top repeat-x;
+  cursor: s-resize;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+table.WinContent td.WinContentRightBottom {
+  width: 10px;
+  height: 10px;
+  background: url("../images/ModWin_br.png") left top no-repeat;
+  cursor: se-resize;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+}

@@ -1,4 +1,10 @@
-.input-div{
-	padding-right: 3px;
-	display:inline-block;
+.ctrl_edit
+{
+    display: inline-block;
+    position: relative;
+    border-radius: 3px;
+}
+.ctrl_edit input
+{
+    height: 100%;
 }

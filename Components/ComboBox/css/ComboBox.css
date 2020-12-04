@@ -14,7 +14,8 @@ div.cmbb-button
     position: absolute;
     right: 0;
     top: 0;
-    background: url('~CmpComboBox/images/button.png') no-repeat transparent;
+    background: url('/Components/ComboBox/images/default/button.png') no-repeat transparent;
+    /*border: 1px solid black;*/
     cursor: pointer;
 }
 div.cmbb-button:active
@@ -75,13 +76,11 @@ div.cmbb-droplist tr span.btnOC {
     cursor: pointer;
 }
 
-
-
 div.cmbb-droplist table tr.opened span.btnOC {
-    background: url("~CmpComboBox/images/sq.png") left -1px no-repeat transparent;
+    background: url("/Components/ComboBox/images/default/sq.png") left -1px no-repeat transparent;
 }
 div.cmbb-droplist table tr.closed span.btnOC {
-    background: url("~CmpComboBox/images/sq.png") left -62px no-repeat transparent;
+    background: url("/Components/ComboBox/images/default/sq") left -62px no-repeat transparent;
 }
 div.cmbb-droplist table tr:not([parentfield]) span.btnOC {
     display: none;/*это не иерархический справочник*/

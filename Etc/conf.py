@@ -1,5 +1,4 @@
 import os
-
 global ConfigOptions
 ConfigOptions = {
     'DBType': 'MIS',
@@ -115,4 +114,7 @@ def get_option(name,defoultValue="" ):
     return defoultValue
 
 def is_design_mode():
-	return get_option('design_mode');
+    return get_option('design_mode');
+
+
+

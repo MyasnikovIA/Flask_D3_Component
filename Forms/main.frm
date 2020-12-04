@@ -1,20 +1,50 @@
-<div cmptype="Form" class="Main ActiveDashBoard box-sizing-force"  oncreate="Form.onCreate()" name="MAINFORM" title="Тестовое окно" >
+<div cmptype="Form" class="Main ActiveDashBoard box-sizing-force"  oncreate="Form.onCreate()"  onshow="Form.onShow();" name="MAINFORM" title="Тестовое окно" >
     <cmpScript name="ffffff">
         <![CDATA[
             Form.onCreate = function() {
-               setVar("form_params","dddddddd");
-               refreshDataSet('DB_MyDataSet');
+                setVar('form_params','Входная переменная из JS');
+                setVar('ImputVar',' Импут Вар 1');
+            }
+            Form.onShow = function() {
+                setCaption('MyLabelTest',"456756745674567");
+            }
+
+            Form.SetLab = function() {
+                setCaption('LIC_DATE', "998776654544332121");
             }
             Form.MySendJS = function() {
-                openD3Form('main',true)
+               refreshDataSet('DB_MyDataSet', function(){
+                      console.log( getDataSet('DB_MyDataSet') );
+                      setValue("MyEdit","fffffffffff");
+               });
+            }
+            Form.onRunModule = function() {
+               setVar("form_params","fffffffff")
+               executeAction('checkHelpRight', function(){
+                    alert(getVar('can_edit'));
+               });
+               setValue("MyEdit","98989889")
             }
         ]]>
     </cmpScript>
 
-    <cmpButton id='test' caption="запустить Модальное окно " btn="outline-primary" onclick="Form.MySendJS()" ></cmpButton>
+    <component cmptype="Label" name="LIC_DATE"/>
+    <cmpLabel name="MyLabelTest" caption="ddddddddd"></cmpLabel>
+    <cmpEdit name="MyEdit"/>
 
-    <cmpDataSet name="DB_MyDataSet" query_type="server_python">
-         aa=1111
+    <cmpButton name='test' caption="запустить Модальное окно " onclick="Form.MySendJS()" ></cmpButton>
+
+    <cmpLabel caption="ddddddddd"/>
+   <br/>
+    <cmpButton name='test' caption=" Form.SetLab" onclick=" Form.SetLab()" ></cmpButton>
+
+
+   <div  repeat="0"  name="cmp5fc742f86a9b7" repeatername="rep_5fc742f86a9cf" dataset="DB_MyDataSet"  >
+        <cmpLabel  data="value:id;caption:FULLNAME"/>
+   </div>
+
+    <cmpDataSet name="DB_MyDataSet" query_type="server_python"  activateoncreate="false"  >
+         aa=form_params
          data = []
          data.append({"id":1,"FULLNAME":"Текст из Python  кода 1"})
          data.append({"id":2,"FULLNAME":"Текст из Python  кода 2"})
@@ -24,16 +54,19 @@
          data
         <cmpDataSetVar name="form_params"    src="form_params"   srctype="var"/>
     </cmpDataSet>
+    <cmpSubForm  path="mainSub"/>
 
 
-        <cmpComboBox class="form-control" name="MySel">
-            <cmpComboItem caption="" value=""/>
-            <cmpComboItem caption="2" value="2"/>
-            <cmpComboItem caption="3" value="3"/>
-            <cmpComboItem caption="4" value="4"/>
-            <cmpComboItem dataset="DB_MyDataSet" repeat="0" data="value:id;caption:FULLNAME"/>
-        </cmpComboBox>
+    <cmpAction name="checkHelpRight" query_type="server_python">
+         can_edit = [1,2,3,4,5,form_params]
+         varNoVisible=[1,2,3,4,5]
+        <cmpActionVar name="form_params"    src="form_params"   srctype="var"/>
+        <cmpActionVar name="can_edit"       src="can_edit"      srctype="var" put=""/>
+    </cmpAction>
 
-<!-- ===============================            -->
+
+    <cmpButton name='test' caption="Form.onRunModule" onclick="Form.onRunModule()" />
+
+
 </div>
 

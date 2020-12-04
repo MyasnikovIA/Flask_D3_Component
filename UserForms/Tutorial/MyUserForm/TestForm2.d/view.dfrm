@@ -1,0 +1,3 @@
+<node target="MyComponent" pos="after">
+     <br/><cmpLabel caption=" Дополняется в ЮФ  UserForms/MyUserForm/TestForm2.d/view.dfrm " name="MyComponent2"/>
+</node>

@@ -1,4 +1,4 @@
-from Components.BaseCtrl import BaseCtrl
+from Components.BaseCtrl import *
 
 
 class ComboBox(BaseCtrl):
@@ -56,7 +56,7 @@ class ComboBox(BaseCtrl):
 
     """
 
-    def __init__(self, PageInfo={}, attrs={}, innerText=""):
+    def __init__(self, PageInfo={}, attrs={}, innerText="",parent = None):
         self.style = []
         self.classCSS = []
         if 'style' in attrs:
@@ -91,12 +91,15 @@ class ComboBox(BaseCtrl):
             self.attrs['onpostclone'] = "D3Api.ComboBoxCtrl.postClone(this);"
         listProp = ['readonly','disabled','placeholder','maxlength']
         self.elProp = "  ".join(f"{k}='{v}'" for  k, v in self.attrs.items() if k in listProp)
+        self.data = getDomAttrRemove('data', None, self.attrs);
 
     def Show(self):
         res = []
-        atr = "  ".join(f'{k}="{v}"' for k, v in self.attrs.items())
-        res.append(f'''
-<div cmptype="{self.CmpType}"  {atr}
+        eventsStr = "  ".join(f"{k}='{v}'" for k, v in self.attrs.items() if k[:2] == "on")
+        atr = "  ".join(f"{k}='{v}'" for k, v in self.attrs.items() if not k[:2] == "on")
+
+        showtext = f'''
+<div cmptype="{self.CmpType}"  {atr} {self.data}  {eventsStr}
      class="{" ".join(self.classCSS)}" >
     <div class="cmbb-input"><input cmpparse="ComboBox" onchange="D3Api.stopEvent()" type="text" {self.elProp}
                                    onclick="D3Api.ComboBoxCtrl.downClick(this);"
@@ -106,5 +109,13 @@ class ComboBox(BaseCtrl):
     <div cmptype="Base" name="ComboItemsList_IS_MAIN">
         <div cmptype="ComboBoxDL" cont="cmbbdroplist" class="cmbb-droplist">
             <table>
-        ''')
-        return '</table></div></div></div>', res, [],""
+        '''
+        self.sysinfo = []
+        self.sysinfo.append("<scriptfile>Components/ComboBox/js/ComboBox.js</scriptfile>")
+        self.sysinfo.append("<cssfile>Components/ComboBox/css/ComboBox.css</cssfile>")
+        return f"</table></div></div></div>", [showtext], self.sysinfo, ""
+
+
+
+
+

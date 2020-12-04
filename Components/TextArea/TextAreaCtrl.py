@@ -1,82 +1,59 @@
-from Components.BaseCtrl import BaseCtrl
+from Components.BaseCtrl import *
 
 
 class TextArea(BaseCtrl):
-    """
-          <div  name="IS_MAIN" cmptype="Edit" title=""  class="ctrl_edit editControl box-sizing-force"  style=";width: 100%;">
-              <div class = "edit-input">
-                 <input cmpparse="Edit" type="text" value="" onchange="D3Api.stopEvent();"/>
-              </div>
-          </div>
-    """
 
-    def __init__(self, PageInfo={}, attrs={}, innerText=""):
+    def __init__(self, PageInfo={}, attrs={}, innerText="", parent=None):
+        self.events = {}
         self.style = []
         self.classCSS = []
         if 'style' in attrs:
-            self.style = [i for i in attrs['style'].split(";")]
-            del attrs['style']
-        for name in self.argsToStyleList:
-            if name in attrs:
-                self.style.append(f"{name}:{attrs[name]}")
-                del attrs[name]
-
+            self.style = [i for i in RemoveArrKeyRtrn(attrs, 'style').split(";")]
         self.PageInfo = PageInfo
         self.CmpType = 'TextArea';
         if 'cmptype' in attrs:
             del attrs['cmptype']
         self.printTag = 'div';
         self.attrs = attrs.copy()
-        self.innerText = ""
-        if innerText != None:
-            self.innerText = innerText
-        if 'title' not in self.attrs:
-            self.attrs['title'] = ""
-        if 'caption' in self.attrs:
-            self.innerHtml = self.attrs['caption']
-            del self.attrs['caption']
+        self.innerHtml = innerText
+        # ============== INIT Html Class =========================
         if 'class' not in self.attrs:
-            self.classCSS = ['ctrl_edit', 'editControl', 'box-sizing-force']
+            self.classCSS = ['textArea', 'box-sizing-force', 'editControl']
         else:
             self.classCSS = [i for i in attrs['class'].split(" ")]
             del self.attrs['class']
-        if 'ctrl_edit' not in self.classCSS:
-            self.classCSS.append('self.classCSS')
-        if 'ctrl_edit' not in self.classCSS:
-            self.classCSS.append('ctrl_edit')
-        if 'editControl' not in self.classCSS:
-            self.classCSS.append('editControl')
-        if 'box-sizing-force' not in self.classCSS:
+        if ('textArea' not in self.classCSS):
+            self.classCSS.append('textArea')
+        if ('box-sizing-force' not in self.classCSS):
             self.classCSS.append('box-sizing-force')
-        if 'value' in self.attrs:
-            self.value = self.attrs['value']
-        else:
-            self.value = ""
-        if 'name' not in self.attrs:
-            self.attrs['name'] = self.genName()
-        if ('format' in self.attrs) and ('onformat' not in self.attrs):
-            self.attrs['onformat'] = f'D3Api.EditCtrl.format(this, {self.attrs["format"]}, arguments[0]);';
-        listProp = ['readonly', 'disabled', 'placeholder', 'maxlength']
-        self.elProp = "  ".join(f"{k}='{v}'" for k, v in self.attrs.items() if k in listProp)
-        self.value = ""
-        if 'value' in self.attrs:
-            self.value = f' value="{self.attrs["value"]}" '
-            del self.attrs['value']
-        if 'class' not in self.attrs:
-            self.classCSS = []
-        else:
-            self.classCSS = [i for i in attrs['class'].split(" ")]
-            del self.attrs['class']
-        self.events = "  ".join(f"{k}='{v}'" for k, v in self.attrs.items() if k[:2] == "on")
+        if ('editControl' not in self.classCSS):
+            self.classCSS.append('editControl')
+        # ========================================================
+        self.readonly = getDomAttrRemove('readonly', None, self.attrs);
+        self.placeholder = getDomAttrRemove('placeholder', None, self.attrs);
+        self.maxlength = getDomAttrRemove('maxlength', None, self.attrs);
+        self.name = RemoveArrKeyRtrn(self.attrs, 'name', self.genName())
+        self.value = RemoveArrKeyRtrn(self.attrs, 'value').replace('"', '\\"')
+        self.format = getDomAttrRemove('format', None, self.attrs);
+        self.data = getDomAttrRemove('data', None, self.attrs);
+        if len(self.format) and ('onformat' not in self.attrs):
+            self.attrs['onformat'] = f'D3Api.EditCtrl.format(this, {self.format}, arguments[0]);';
 
     def Show(self):
-        res = []
-        atr = "  ".join(f"{k}='{v}'" for k, v in self.attrs.items())
-        res.append(f"""
-              <div  cmptype="{self.CmpType}"  {atr}    class="{" ".join(self.classCSS)}" >
-                     <textarea cmpparse="{self.CmpType}" {self.elProp} {self.events}>{self.value}{self.innerText}</textarea>
-        """)
+        eventsStr = "  ".join(f"{k}='{v}'" for k, v in self.attrs.items() if k[:2] == "on")
+        atr = "  ".join(f"{k}='{v}'" for k, v in self.attrs.items() if not k[:2] == "on")
+        if len(self.classCSS) > 0:
+            classCSSStr = f""" class='{' '.join(self.classCSS)}'"""
+        else:
+            classCSSStr = ""
+        """
+        $showtext='<div '.$this->GetAttrString().' '.$this->GetContAttrString().' '.$this->ctrlstyle.' '.getDomAttr('class',implode(' ',$this->class)).'>'
+                            .'<textarea cmpparse="TextArea" '.getDomAttr('maxlength', $this->maxlength).(($this->placeholder) ? getDomAttr('placeholder', $this->placeholder) : '').implode(' ',$this->events).$this->disabled.''.(($this->readonly)?' readonly="readonly"':'').'>'.(($this->value)?$this->value:$this->text).'</textarea>'
+        """
+        showtext = f"""
+                <div  cmptype="{self.CmpType}" name={self.name}  {classCSSStr}    style="{" ".join(self.style)}   {self.data} {atr}>
+                        <textarea cmpparse="TextArea" {self.maxlength} {self.placeholder} {eventsStr} {self.readonly}>{self.value}{self.innerHtml}</textarea>"""
         self.sysinfo = []
         self.sysinfo.append("<scriptfile>Components/TextArea/js/TextArea.js</scriptfile>")
         self.sysinfo.append("<cssfile>Components/TextArea/css/TextArea.css</cssfile>")
-        return f"</{self.printTag}>", res, self.sysinfo, ""
+        return f"</{self.printTag}>", [showtext], self.sysinfo, ""
